@@ -1,0 +1,99 @@
+{%extends "base.html"%}
+{%block title%} CLASIFICACIÓN {%endblock%}
+{%block content%}
+<html>
+  <style>
+    td{
+      height: 50px;
+      width : 300px;
+    }
+  </style>
+<head>
+    <script>
+
+    </script>
+</head>
+<body>
+
+  <center>
+    <h3>CLASIFICACIÓN</h3>
+    <h4>Identificacion de Tumores Malignos o Benignos</h4>
+  </center>
+    <br>
+    <form class="form-inline" action="../clasificacion/" method="POST" enctype = "multipart / form-data">{% csrf_token %}
+        <table>
+          <tr>
+            <td>Textura </td>
+            <td>
+              <div class="form-group mx-sm-3 mb-2">
+                <input type="number"  name = "textura" step="0.0000001" value={{textura}} required>                
+              </div>
+            </td>
+          </tr>
+            <tr>
+              <td>Area </td>
+              <td>
+                <div class="form-group mx-sm-3 mb-2">
+                  <input type="number"  name = "area" step="0.0000001" value={{area}} required>                
+                </div>
+              </td>
+            </tr>
+          <tr>
+            <td>Suavidad </td>
+            <td>
+              <div class="form-group mx-sm-3 mb-2">
+                <input type="number"  name = "suavidad" step="0.0000001" value={{suavidad}} required>                
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Compacidad </td>
+            <td>
+              <div class="form-group mx-sm-3 mb-2">
+                <input type="number"  name = "compacidad" step="0.0000001" value={{compacidad}} required>                
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Simetria </td>
+            <td>
+              <div class="form-group mx-sm-3 mb-2">
+                <input type="number"  name = "simetria" step="0.0000001" value={{simetria}} required>                
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Dimension Fractal </td>
+            <td>
+              <div class="form-group mx-sm-3 mb-2">
+                <input type="number"  name = "dimension" step="0.0000001" value={{dimension}} required>                
+              </div>
+            </td>
+          </tr>
+          <tr> 
+            <tr>
+              <td>Posible Diagnostico</td>
+              <td>
+                <div class="form-group mx-sm-3 mb-2">
+                  <input type="text"  style="background-color: {{color}} " disabled value={{resultado}} >                
+                </div>
+              </td>
+            </tr>
+            <tr>     
+            
+        </table>
+        
+          <br><br>
+          <center>
+            <button type="submit" class="btn btn-primary mb-2">Subir</button>
+          </center>
+      </form>
+</body>
+
+
+</html>
+{%endblock%}
+
+{%block info%}
+<center><h2>{{porcentaje}}</h2></center>
+{%endblock%}

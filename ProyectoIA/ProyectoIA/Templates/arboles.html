@@ -1,0 +1,60 @@
+{%extends "base.html"%}
+{%block title%} ARBOLES DE DECISIÓN {%endblock%}
+{%block content%}
+<html>
+  <style>
+    td{
+      height: 50px;
+      width : 300px;
+    }
+  </style>
+<head>
+    <title>
+        ARBOLES DE DECISIÓN
+    </title>
+    <script>
+
+    </script>
+</head>
+<body>
+
+  <center>
+    <h3>ARBOLES DE DECISIÓN</h3>
+  </center>
+    <br>
+    <form class="form-inline" action="../arboles/" method="POST" enctype = "multipart / form-data">{% csrf_token %}
+        <table>
+          <tr>
+            <td>Archivo CSV </td>
+            <td>
+              <div class="form-group mx-sm-3 mb-2">
+                <input type="file" placeholder="Dato" name="archivo" accept="application/csv, .csv" > 
+                <input type="hidden" name="tmp" value = {{archivo}}>               
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Tipo de Clustering</td>
+            <td>
+              <div class="form-group mx-sm-3 mb-2">               
+                <select class="form-control" name="tipo">
+                    <option value="P">Pronóstico</option>
+                    <option value="C">Clasificación</option>
+                </select>
+              </div>
+            </td>
+          </tr>
+        </table>
+          <br><br>
+          <center>
+            <button type="submit" class="btn btn-primary mb-2">Subir</button>
+          </center>
+      </form>
+</body>
+
+
+</html>
+{%endblock%}
+
+{%block info%}
+{%endblock%}

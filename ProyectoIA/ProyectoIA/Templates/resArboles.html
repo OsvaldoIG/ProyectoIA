@@ -1,0 +1,160 @@
+{%extends "base.html"%}
+{%block title%} ARBOLES DE DECISIÓN {%endblock%}
+{%block content%}
+<html>
+  <style>
+    td{
+      height: 50px;
+      width : 300px;
+    }
+  </style>
+<head>
+    <script>
+
+    </script>
+</head>
+<body>
+
+  <center>
+    <h3>ARBOLES DE DECISIÓN</h3>
+  </center>
+    <br>
+    <form class="form-inline" action="../arboles/" method="POST" enctype = "multipart / form-data">{% csrf_token %}
+        <table>
+          <tr>
+            <td>Archivo CSV </td>
+            <td>
+              <div class="form-group mx-sm-3 mb-2">
+                <input type="file" placeholder="Dato" name="archivo" accept="application/csv, .csv" > 
+                <input type="hidden" name="tmp" value = {{archivo}}>  
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Tipo de Busqueda</td>
+            <td>
+              <div class="form-group mx-sm-3 mb-2">               
+                <select class="form-control" name="tipo">
+                    <option value="P">Pronóstico</option>
+                    <option value="C">Clasificación</option>
+                </select>
+              </div>
+            </td>
+          </tr>
+        </table>
+          <br><br>
+          <center>
+            <button type="submit" class="btn btn-primary mb-2">Subir</button>
+          </center>
+      </form>
+</body>
+
+
+</html>
+{%endblock%}
+
+{%block info%}
+<h3>{{nombre}}</h3> <br>
+<form class="form-inline" action="../buscarArboles/" method="POST" enctype = "multipart / form-data">{% csrf_token %}
+    <input type="hidden" name="tmp" value = {{archivo}}>
+    <input type="hidden" name="tipotmp" value= {{tipo}}>
+    <input type="hidden" name="selecciontmp" value="{{seleccion}}">
+    <input type="hidden" name="clasetmp" value="{{clase}}">
+    <p><b>Variables Predictoras</b></p>
+    <div class="form-check form-check-inline"> 
+    {%for val in variables%}
+   
+        <label><input class="form-check-input" type="checkbox" value={{val}} name="seleccion" style="vertical-align: middle;"> {{val}}</label>
+    {%endfor%}
+    </div><br>
+    <p><b>Variable Clase</b></p>
+    <div class="form-check form-check-inline"> 
+    {%for val in variables%}
+   
+        <label><input class="form-check-input" type="radio" value={{val}} name="clase" style="vertical-align: middle;"> {{val}}</label>
+    {%endfor%}
+    </div><br>
+       <br> <button type="submit" class="btn btn-primary mb-2">Subir</button><br><br>
+</form>
+{{varP}}<br>
+<br>
+{{varC}}
+<br><br>
+{{porcentaje}}
+<form class="form-inline" action="../resArboles/" method="POST" enctype = "multipart / form-data">{% csrf_token %}
+<input type="hidden" name="tmp" value = {{archivo}}>
+<input type="hidden" name="tipotmp" value= {{tipo}}>
+<input type="hidden" name="selecciontmp" value="{{seleccion}}">
+<input type="hidden" name="clasetmp" value="{{clase}}">
+<input type="hidden" name="varPtmp" value="{{varP}}">
+<input type="hidden" name="varCtmp" value="{{varC}}">
+
+
+<table class="table" {{mostrar}}>
+    {%for row in seleccion%}
+    <tr>
+        <td>
+            {{row}}
+        </td>
+        <td>
+            <div class="form-group mx-sm-3 mb-2">
+                <input type="number" step ="any" class="form-control" placeholder="{{row}}" name="{{row}}" required>
+            </div>
+        </td>
+    </tr>
+    {%endfor%}
+    <tr>
+        <td colspan="2" align="center">
+            <button type="submit" class="btn btn-primary mb-2">Subir</button>
+        </td>
+    </tr>
+</table>
+</form>
+{{OBJ}}
+{%if b64%}
+<img src='data:image/png;base64,{{ b64 }}'>
+{%endif%}
+<!-----
+<table class="table table-striped table-dark" {{mostrar}}>
+  <thead>
+  <tr>
+    <th scope="col">Número de Cluster</th>
+    <th scope="col">Elementos Asociados</th>
+  </tr>
+  </thead>
+  <tbody>
+  {%for row in cluster%}
+  <tr>
+    {%for cell in row%}
+      <td>
+        {{cell}}
+      </td>
+    {%endfor%}
+  </tr>
+  {%endfor%}
+</tbody>
+</table>
+<br>
+<table class="table table-striped table-dark"{{mostrar}}>
+  <thead>
+  <tr>
+    <th scope="col">Número de Cluster</th>
+    {%for val in seleccion%}
+    <th scope="col">{{val|capfirst}}</th>
+    {%endfor%}
+  </tr>
+  </thead>
+  <tbody>
+  {%for row in dato%}
+  <tr>
+    {%for cell in row%}
+      <td>
+        {{cell}}
+      </td>
+    {%endfor%}
+  </tr>
+  {%endfor%}
+  </tbody>
+</table>
+---->
+{%endblock%}

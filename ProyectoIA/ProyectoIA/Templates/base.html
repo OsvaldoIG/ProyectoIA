@@ -1,0 +1,69 @@
+<html>
+    <style>
+        *{
+            margin: 0;
+        }
+        .base{
+            background-color:maroon;
+            color: whitesmoke;
+            margin-top: 0%;
+            padding: 1%;
+            font: 150% sans-serif;
+        }
+
+        .renglon{
+            width: 900px;
+            color: whitesmoke;
+        }
+        
+    </style>
+    <head>
+        <title>
+            {%block title%} {%endblock%}
+        </title>
+         <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    </head>
+    <body style="background-color: whitesmoke">
+        <center><a href="../inicio"><h1 class="base" style="font-size:xx-large" >PROYECTO IA</h1></a></center>
+        
+        <table>
+            <tr>
+                <td style="height: 500px;">{%include "menu.html"%}</td>
+                <td style="width: 1700px;" ><center>{%block content%}
+
+                    {%endblock%}</center></td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td style="width: 440px;"> </td>
+                <td style="width: 1700px;">   
+                    
+                        {%block info%}
+
+                        {%endblock%}
+                    
+
+                </td>
+            </tr>
+        </table>
+        <footer>
+        <p class="base" style="font-size: small; margin-top: 10%;">
+            <table>
+                <tr>
+                    <td class="renglon">Profesor: Dr. Guillermo Gilberto Morales Castillo</td>
+                    <td align="right" class="renglon">FI UNAM</td>
+                </tr>
+                <tr>
+                    <td class="renglon">Creado por: Ibañez Guzman Osvaldo   </td>
+                    <td align="right" class="renglon">Inteligencia Artificial Grupo 3</td>
+                </tr>
+            </table>
+        </p>
+    </footer>
+        
+    </body>
+
+</html>

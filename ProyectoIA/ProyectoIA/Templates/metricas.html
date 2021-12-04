@@ -1,0 +1,62 @@
+{%extends "base.html"%}
+{%block title%} METRICAS DE DISTANCIA {%endblock%}
+{%block content%}
+<html>
+  <style>
+    td{
+      height: 50px;
+      width : 300px;
+    }
+  </style>
+<head>
+    <title>
+        METRICAS DE DISTANCIA
+    </title>
+    <script type="text/javascript">
+       
+    </script>
+</head>
+<body>
+
+  <center>
+    <h3>METRICAS DE DISTANCIA</h3>
+  </center>
+    <br>
+    <form class="form-inline" name="form" action="../metricas/" method="POST" enctype = "multipart / form-data">{% csrf_token %}
+        <table>
+          <tr>
+            <td>Archivo CSV </td>
+            <td>
+              <div class="form-group mx-sm-3 mb-2">
+                <input type="file" placeholder="Dato" id="archivo" name="archivo" accept="application/csv, .csv" value = {{archivo}}>
+                <input type="hidden" name="tmp" value = {{archivo}}>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Tipo de Metrica</td>
+            <td>
+              <div class="form-group mx-sm-3 mb-2">               
+                <select class="form-control" name="tipo">
+                    <option value="euclidean">Euclidiana</option>
+                    <option value="chebyshev">Chebyshev</option>
+                    <option value="cityblock">Manhattan</option>
+                    <option value="minkowski">Minkowski</option>
+                </select>
+              </div>
+            </td>
+          </tr>
+        </table>
+        
+          <br><br>
+          <center>
+            <button type="submit" class="btn btn-primary mb-2">Subir</button>
+            <p id="nuevo"></p>
+          </center>
+      </form>
+</body>
+
+
+</html>
+{%endblock%}
+

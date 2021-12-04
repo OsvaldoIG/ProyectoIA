@@ -1,0 +1,148 @@
+{%extends "base.html"%}
+{%block title%} METRICAS DE DISTANCIA {%endblock%}
+{%block content%}
+<html>
+  <style>
+     td{
+      height: 50px;
+      width : 300px;
+    }
+    .scroll{
+      border: none;
+      width: 700px;
+      height: 500px;
+      overflow: scroll;
+    }
+  </style>
+<head>
+    <title>
+        METRICAS DE DISTANCIA
+    </title>
+    <script type="text/javascript">
+        function rangoS(){
+            forma = document.getElementById("rango").value;
+            if (forma == "UV"){
+                var mensaje =
+                "<center>"+
+                "Valor 1  <div class='form-group mx-sm-3 mb-2'><input type='number' placeholder='Dato' name='numeroX' min='0'></div><br><br>"+
+                "Valor 2  <div class='form-group mx-sm-3 mb-2'><input type='number' placeholder='Dato' name='numeroY' min='0'></div>"+
+                "<br><br>"+
+                "<button type='submit' class='btn btn-primary mb-2'>Buscar</button>"+
+                "</center>";
+                document.getElementById("nuevo").innerHTML = mensaje;
+            }else if (forma == "RV"){
+                var mensaje =
+                "<center>"+
+                "Inicio<div class='form-group mx-sm-3 mb-2'><input type='number' placeholder='Dato' name='numeroX' min='0'></div><br><br>"+
+                "Fin  <div class='form-group mx-sm-3 mb-2'><input type='number' placeholder='Dato' name='numeroY' min='0'></div>"+
+                "<br><br>"+
+                "<button type='submit' class='btn btn-primary mb-2'>Buscar</button>"+
+                "</center>";
+                document.getElementById("nuevo").innerHTML = mensaje;
+            }else
+                document.getElementById("nuevo").innerHTML = "";
+
+        }
+    </script>
+</head>
+<body>
+
+  <center>
+    <h3>METRICAS DE DISTANCIA</h3>
+  </center>
+    <br>
+    <form class="form-inline" name="form" action="../metricas/" method="POST" enctype = "multipart / form-data">{% csrf_token %}
+        <table>
+          <tr>
+            <td>Archivo CSV </td>
+            <td>
+              <div class="form-group mx-sm-3 mb-2">
+                <input type="file" placeholder="Dato" id="archivo" name="archivo" accept="application/csv, .csv" value = {{archivo}}>
+                <input type="hidden" name="tmp" value = {{archivo}}>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Tipo de Metrica</td>
+            <td>
+              <div class="form-group mx-sm-3 mb-2">               
+                <select class="form-control" name="tipo">
+                    <option value="euclidean">Euclidiana</option>
+                    <option value="chebyshev">Chebyshev</option>
+                    <option value="cityblock">Manhattan</option>
+                    <option value="minkowski">Minkowski</option>
+                </select>
+              </div>
+            </td>
+          </tr>
+        </table>
+        
+          <br><br>
+          <center>
+            <button type="submit" class="btn btn-primary mb-2">Subir</button>
+          </center>
+      </form>
+</body>
+
+
+</html>
+{%endblock%}
+
+{%block info%}
+<h3>{{nombre}}</h3> <br>
+<form class="form-inline" name="form2" action="../buscarMetricas/" method="POST" enctype = "multipart / form-data">{% csrf_token %}
+    <table>
+        <tr>
+        <td>Rango</td>
+        <input type="hidden" name="tmp" value = {{archivo}}>
+        <input type="hidden" name="tipotmp" value= {{tipo}}>
+        <td>
+          <div class="form-group mx-sm-3 mb-2">               
+            <select class="form-control" id="rango" name="rango" onclick=rangoS()>
+                <option value="X">------</option>
+                <option value="UV">Unico Valor</option>
+                <option value="RV">Rango de Valores</option>
+            </select>
+          </div>
+        </td>
+        </tr>
+        <tr>
+        <td colspan="2"><center>
+            <p id="nuevo"></p>
+            <h3>{{cadena}}</h3>
+            {%if tipoRango == "UV"%}
+              {{val}}
+            {%endif%}
+            {%if tipoRango == "RV"%}
+            <div class="scroll">
+            <table class="table table-striped" >
+              <thead>
+                <tr>
+                  {% for i in loop %}
+                  <th scope="col">{{i}}</th>
+                  {% endfor %} 
+                </tr>
+              </thead>
+              <tbody>
+              {%for row in val%}
+              <tr>
+                {%for cell in row%}
+                  <td>
+                    {{cell}}
+                  </td>
+                {%endfor%}
+              </tr>
+              {%endfor%}
+            </tbody>
+            </table>
+          </div>
+            {%endif%}
+        </center>
+        </td>
+        </tr>
+    </table>
+
+</form>
+<br>
+{%endblock%}
+
